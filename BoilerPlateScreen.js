@@ -1,9 +1,13 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 const BoilerPlateScreen = () => {
-    return <Text>Boiler Plate Screen</Text>
-}
+  return (
+    <View>
+      <Text>Boiler Plate Screen</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({});
 
