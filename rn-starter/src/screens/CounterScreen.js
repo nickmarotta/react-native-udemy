@@ -1,38 +1,37 @@
-import React, { useState } from "react";
+/*
+  This file was refactored to use reducer as an exercise. 
+  A reducer is not really ideal in this case, and state is probably cleaner. 
+  Refer to CounterScreenUsingState for original implementaion.
+*/
+
+import React, { useReducer } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
+const reducer = (state, action) => {
+
+  switch (action.type) {
+    case 'increment':
+      return { ...state, counter: state.counter + 1 }
+    case 'decrement':
+      return { ...state, counter: state.counter - 1 }
+    default:
+      return state; 
+  }
+};
+
 const CounterScreen = () => {
-  /*
-    https://www.udemy.com/course/the-complete-react-native-and-redux-course/learn/lecture/15706650#overview
-    Section 6 pt 41
-
-    param for useState is 0 - this is the default value
-
-    [counter, setCounter] is array destructuring
-    useState returns an array, and we use array destructuring to assign 
-    `counter` to `useState(0)[0]` and 
-    `setCounter` to `useState(0)[1]`  
-
-    Because we're using the state stuff, we CANNOT modify a state variable directly.
-    counter++ will not work and trigger a state update. 
-    We need to use the setCounter that we destructured
-
-  */
-  const [counter, setCounter] = useState(0);
+  const [state, dispatch] = useReducer(reducer, { counter: 0 })
+  const { counter } = state;
 
   return (
     <View>
       <Button
         title="Increase"
-        onPress={() => {
-          setCounter(counter + 1);
-        }}
+        onPress={() => dispatch({type: 'increment'})}
       />
       <Button
         title="Decrease"
-        onPress={() => {
-          setCounter(counter - 1);
-        }}
+        onPress={() => dispatch({type: 'decrement'})}
       />
       <Text>Current Count: {counter}</Text>
     </View>
